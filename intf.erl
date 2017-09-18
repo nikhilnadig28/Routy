@@ -1,5 +1,5 @@
--module(interface).
--export([]).
+-module(intf).
+-export([new/0, add/4, remove/2, lookup/2, ref/2, name/2, list/1, broadcast/2]).
 
 %Returns an empty set of interfaces
 new() ->
@@ -53,4 +53,4 @@ list(Intf) ->
 
 %Send message to all interface processes 
 broadcast(Message, Intf) ->
-%HOW?
+%HOW?s
