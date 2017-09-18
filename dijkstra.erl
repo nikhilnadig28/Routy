@@ -1,5 +1,5 @@
 -module(dijkstra).
--export([entry/2, replace/4, update/4, iterate/3]).
+-export([entry/2, replace/4, update/4, iterate/3, table/2]).
 
 
 entry(Node, Sorted) ->
@@ -42,7 +42,14 @@ if
 	true ->
 		NodeOfFirst = element(1,hd(Sorted)),
 		ReachableNodes = lists:flatten(map:reachable(NodeOfFirst, Map)),
+	%This needs to be iterated through all the elements in ReachableNodes	
 		lists:append([{NodeOfFirst, hd(ReachableNodes)}, Table])
+%This entire function needs to be iterated through the Sorted List till it is empty.
+end.
 
 
-end
+table(Gateways, Map) ->
+
+
+route(Node, Table) ->
+
