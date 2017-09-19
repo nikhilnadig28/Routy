@@ -49,8 +49,16 @@ end.
 
 %Return list of all names
 list(Intf) ->
-[element(1,Names) || Names<-Intf].
+[element(1,Names) || Names <- Intf].
 
 %Send message to all interface processes 
 broadcast(Message, Intf) ->
-%HOW?s
+case Intf of
+	[] ->
+		ok;
+
+	[{_, _, Pid} | T] ->
+		Pid ! Message,
+		broadcast(Message, T)
+end.
+

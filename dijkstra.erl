@@ -29,21 +29,35 @@ end.
 
 iterate(Sorted, Map, Table) ->
 %if there are no entires in the sortes list, we are done and the routing table is complete.
-if
-	length(Sorted) == 0 ->
-	Table;
+case Sorted of
+	% length(Sorted) == 0 ->
+	[] ->
+		Table;
 
 %if the first entry is a dummy with an infinite path to a city we know the rest of the sorted list is also of infinite length and the routing table is complete
-	element(2,hd(Sorted)) == inf -> 
-	Table;
+	% element(2,hd(Sorted)) == inf -> 
+	[{_,inf,_}|_] ->
+		Table;
 
 %else, take the first entry in the sorted list, find reachable nodes for this entry, update the sorted list
 
-	true ->
-		NodeOfFirst = element(1,hd(Sorted)),
-		ReachableNodes = lists:flatten(map:reachable(NodeOfFirst, Map)),
+	[H|T] ->
+		{Node, N, Gateway} = H,
+
+		case map:reachable(Node, Map) of
+			[] ->
+				iterate(T, Map, {Node, Gateway} ++ Table);
+
+			ReachableNodes -> 
+
+				NewList = lists:foldl(func(X, Y) -> update(X, N + 1, Gateway, Y)) end, T, ReachableNodes),
+				iterate(NewList, Map, {Node, Gateway} ++ Table)
+		end
+
+		% NodeOfFirst = element(1,hd(Sorted)),
+		% ReachableNodes = lists:flatten(map:reachable(Node, Map)),
 	%This needs to be iterated through all the elements in ReachableNodes	
-		lists:append([{NodeOfFirst, hd(ReachableNodes)}, Table])
+		% lists:append([{NodeOfFirst, hd(ReachableNodes)}, Table])
 %This entire function needs to be iterated through the Sorted List till it is empty.
 end.
 
