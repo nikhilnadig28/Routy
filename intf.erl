@@ -44,14 +44,6 @@ name(Ref, Intf) ->
 					false->
 							notfound
 	end.
-% Tuple = lists:keyfind(Intf, 2, Ref),
-% if
-% 	 Tuple/= false ->
-% 		X = element(1,Tuple),
-% 		{ok, X};
-% 	Tuple == false ->
-% 	notfound
-% end.
 
 %Return list of all names
 list(Intf) ->

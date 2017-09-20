@@ -20,19 +20,3 @@ update(Node, N, History) ->
   end.
 
 
-% case lists:keyfind(Node, 1, History) of
-% 	{ok, Tuple} ->
-% 	if
-% 		N > element(2,Tuple) ->
-% 			List1 = lists:keydelete(Node, 1, History),
-% 			{new, lists:append([{Node, N}], List1)};
-
-% 		true ->
-% 		old		
-% 	end;
-
-% 	false ->
-% 		{new, lists:append(new(Node),History)} %Re-check this
-% end.
-
-
